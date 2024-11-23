@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "./docs/js/",
+    "target": "es5",
+    "module": "system",
+    "removeComments": true,
+    "moduleResolution": "node",
+    "lib": ["es2016", "dom", "es5"]
+  },
+  "include": [
+    "./ts/*"
+  ]
+}
