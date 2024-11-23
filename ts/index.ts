@@ -6,11 +6,17 @@ dropZone.addEventListener('dragover', (event) => {
     console.log('dragover');
 });
 
+dropZone.addEventListener('dragenter', (event) => {
+    event.preventDefault();
+    dropZone.style.backgroundColor = '#e0f7fa';
+    console.log('dragenter');
+});
+
 dropZone.addEventListener('drop', (event) => {
     event.preventDefault();
     dropZone.style.backgroundColor = '#f9f9f9';
     console.log('drop');
-    console.dir(event.dataTransfer.files)
+    console.dir(event.dataTransfer.files.length)
     if (event.dataTransfer.files.length > 0) {
         if (event.dataTransfer.files[0].type === 'text/csv') {
             const reader = new FileReader();
