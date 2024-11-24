@@ -8,13 +8,14 @@
 	    flex-wrap: wrap;
 	    justify-content: left;
 	    align-items: flex-start;
+	    column-gap: 5mm;
 	}
 
 	.tag {
 		flex: 0 0 75mm;
 		width: 75mm;
 		padding: 5mm;
-		border: 1px solid black;
+		border: 1px solid rgb(210, 210, 210);
 		font-family: Futura, 'Century Gothic', AppleGothic, sans-serif;
 		line-height: 14pt;
 		font-size: 10pt;

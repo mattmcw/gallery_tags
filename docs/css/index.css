@@ -19,6 +19,7 @@
     flex-wrap: wrap;
     justify-content: left;
     align-items: flex-start;
+    column-gap: 5vw;
 }
 
 .tag {
