@@ -44,6 +44,7 @@ function parseTSV (tsvText : string) {
         }
         objs.push(obj);
     }
+    objs.sort(sortRows);
     return objs;
 }
 
@@ -79,6 +80,19 @@ function displayTag (row : any) {
     tag.appendChild(price);
 
     tags.appendChild(tag);
+}
+
+function scoreRow (row : any) : number {
+    let score : number = 0;
+    let keys : string[] = Object.keys(row);
+    for (let key of keys) {
+        score += row[key].length
+    }
+    return score;
+}
+
+function sortRows (a : any, b : any) {
+    return scoreRow(b) - scoreRow(a);
 }
 
 function displayTags (rows : any[]) {

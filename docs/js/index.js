@@ -41,6 +41,7 @@ function parseTSV(tsvText) {
         }
         objs.push(obj);
     }
+    objs.sort(sortRows);
     return objs;
 }
 function displayTag(row) {
@@ -67,6 +68,18 @@ function displayTag(row) {
     tag.appendChild(medium);
     tag.appendChild(price);
     tags.appendChild(tag);
+}
+function scoreRow(row) {
+    var score = 0;
+    var keys = Object.keys(row);
+    for (var _i = 0, keys_1 = keys; _i < keys_1.length; _i++) {
+        var key = keys_1[_i];
+        score += row[key].length;
+    }
+    return score;
+}
+function sortRows(a, b) {
+    return scoreRow(b) - scoreRow(a);
 }
 function displayTags(rows) {
     document.getElementById('dnd').classList.add('hide');
