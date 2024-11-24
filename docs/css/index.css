@@ -9,3 +9,32 @@
     color: #555;
     background-color: #f9f9f9;
 }
+
+.hide {
+    display: none !important;
+}
+
+#tags{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    align-items: flex-start;
+}
+
+.tag {
+    border: 1px solid rgb(210, 210, 210);
+    font-family: Futura, 'Century Gothic', AppleGothic, sans-serif;
+    flex: 0 0 40vw;
+    width: 40vw;
+    padding: 5mm;
+    box-sizing: border-box;
+}
+
+.title {
+    font-weight: bold;
+    font-style: italic;
+}
+
+.price {
+    font-weight: bold;
+}
