@@ -31,4 +31,13 @@
 	 .price{
 		font-weight: 600;
 	}
+	.qr{
+		float: right;
+		margin-top: -4mm;
+	}
+
+	.qr img {
+		height: 20mm;
+		width: auto;
+	}
 }

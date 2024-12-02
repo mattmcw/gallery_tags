@@ -48,13 +48,15 @@ function parseTSV (tsvText : string) {
     return objs;
 }
 
-function displayTag (row : any) {
+function displayTag (row : any, i : number) {
     const tag : HTMLElement = document.createElement('div');
     const artist : HTMLElement = document.createElement('div');
     const title : HTMLElement = document.createElement('div');
     const date : HTMLElement = document.createElement('div');
     const medium : HTMLElement = document.createElement('div');
     const price : HTMLElement = document.createElement('div');
+    let qr : HTMLElement;
+    let hasQR : boolean = false;
     
     tag.classList.add('tag');
 
@@ -79,7 +81,28 @@ function displayTag (row : any) {
     tag.appendChild(medium);
     tag.appendChild(price);
 
+    if (typeof row.QR !== 'undefined' && row.QR !== null && row.QR.trim() !== '') {
+        qr = document.createElement('div');
+        qr.classList.add('qr');
+        qr.classList.add(`qr_tag_${i}`);
+        tag.appendChild(qr);
+        hasQR = true;
+        console.log(row.QR)
+    }
+
     tags.appendChild(tag);
+    if (hasQR) {
+        //@ts-ignore
+        new QRCode(document.querySelector(`.qr_tag_${i}`), {
+            text: row.QR,
+            width: 128,
+            height: 128,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            //@ts-ignore
+            correctLevel : QRCode.CorrectLevel.L
+        });
+    }
 }
 
 function scoreRow (row : any) : number {
@@ -99,8 +122,10 @@ function displayTags (rows : any[]) {
     document.getElementById('dnd').classList.add('hide');
     document.getElementById('display').classList.remove('hide');
 
+    let i : number = 0;
     for (let row of rows) {
         console.dir(row)
-        displayTag(row);
+        displayTag(row, i);
+        i++;
     }
 }

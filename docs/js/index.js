@@ -44,13 +44,15 @@ function parseTSV(tsvText) {
     objs.sort(sortRows);
     return objs;
 }
-function displayTag(row) {
+function displayTag(row, i) {
     var tag = document.createElement('div');
     var artist = document.createElement('div');
     var title = document.createElement('div');
     var date = document.createElement('div');
     var medium = document.createElement('div');
     var price = document.createElement('div');
+    var qr;
+    var hasQR = false;
     tag.classList.add('tag');
     artist.classList.add('artist');
     artist.innerHTML = row.Artist;
@@ -67,7 +69,25 @@ function displayTag(row) {
     tag.appendChild(date);
     tag.appendChild(medium);
     tag.appendChild(price);
+    if (typeof row.QR !== 'undefined' && row.QR !== null && row.QR.trim() !== '') {
+        qr = document.createElement('div');
+        qr.classList.add('qr');
+        qr.classList.add("qr_tag_".concat(i));
+        tag.appendChild(qr);
+        hasQR = true;
+        console.log(row.QR);
+    }
     tags.appendChild(tag);
+    if (hasQR) {
+        new QRCode(document.querySelector(".qr_tag_".concat(i)), {
+            text: row.QR,
+            width: 128,
+            height: 128,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.L
+        });
+    }
 }
 function scoreRow(row) {
     var score = 0;
@@ -84,9 +104,11 @@ function sortRows(a, b) {
 function displayTags(rows) {
     document.getElementById('dnd').classList.add('hide');
     document.getElementById('display').classList.remove('hide');
+    var i = 0;
     for (var _i = 0, rows_1 = rows; _i < rows_1.length; _i++) {
         var row = rows_1[_i];
         console.dir(row);
-        displayTag(row);
+        displayTag(row, i);
+        i++;
     }
 }
