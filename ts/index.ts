@@ -1,5 +1,15 @@
-const dropZone = document.getElementById('drop-zone');
-const tags = document.getElementById('tags');
+interface Tag {
+    [key: string] : string;
+    Artist? : string;
+    Title? : string;
+    Date? : string;
+    Medium? : string;
+    Price? : string;
+    QR? : string;
+}
+
+const dropZone : HTMLElement = document.getElementById('drop-zone');
+const tags : HTMLElement = document.getElementById('tags');
 
 dropZone.addEventListener('dragover', (event) => {
     event.preventDefault();
@@ -32,11 +42,11 @@ dropZone.addEventListener('drop', (event) => {
     }
 });
 
-function parseTSV (tsvText : string) {
-    const rows = tsvText.split('\n');
-    const parsedData = rows.map(row => row.split('\t'));
-    const objs : any[] = [];
-    let obj : any;
+function parseTSV (tsvText : string) : Tag[] {
+    const rows : string[] = tsvText.split('\n');
+    const parsedData : string[][] = rows.map(row => row.split('\t'));
+    const objs : Tag[] = [];
+    let obj : Tag;
     for (let i = 1; i < parsedData.length; i++) {
         obj = {};
         for (let x = 0; x < parsedData[i].length; x++) {
@@ -48,7 +58,7 @@ function parseTSV (tsvText : string) {
     return objs;
 }
 
-function displayTag (row : any, i : number) {
+function displayTag (row : Tag, i : number) {
     const tag : HTMLElement = document.createElement('div');
     const artist : HTMLElement = document.createElement('div');
     const title : HTMLElement = document.createElement('div');
@@ -105,20 +115,20 @@ function displayTag (row : any, i : number) {
     }
 }
 
-function scoreRow (row : any) : number {
+function scoreRow (row : Tag) : number {
     let score : number = 0;
     let keys : string[] = Object.keys(row);
     for (let key of keys) {
-        score += row[key].length
+        score += row[key].length;
     }
     return score;
 }
 
-function sortRows (a : any, b : any) {
+function sortRows (a : Tag, b : Tag) {
     return scoreRow(b) - scoreRow(a);
 }
 
-function displayTags (rows : any[]) {
+function displayTags (rows : Tag[]) {
     document.getElementById('dnd').classList.add('hide');
     document.getElementById('display').classList.remove('hide');
 
